@@ -33,10 +33,10 @@ class SecondFragment : Fragment() {
         val bModificar=view.findViewById<Button>(R.id.frag2_bModificar)
         val etPalabra=view.findViewById<EditText>(R.id.frag2_etPalabra)
         val tvId=view.findViewById<TextView>(R.id.frag2_tvId)
-        val id:Long?=arguments?.getLong("id")
-        Toast.makeText(activity, id.toString(),Toast.LENGTH_SHORT).show()
+        val id:Long=arguments?.getLong("id") ?:-1
+        var miPalabra:String=""
 
-        if(id==null){
+        if(id.compareTo(-1)==0){
             bBorrar.isEnabled=false
             bModificar.isEnabled=false
             bInsertar.isEnabled=true
@@ -49,8 +49,8 @@ class SecondFragment : Fragment() {
             (activity as MainActivity).miViewModel.miPalabra.observe(requireActivity()){
                 tvId.text=String.format("ID: ${it?.id}")
                 etPalabra.setText(it?.palabra)
+                miPalabra=it?.palabra ?:""
             }
-
         }
 
         bInsertar.setOnClickListener {
@@ -59,7 +59,23 @@ class SecondFragment : Fragment() {
                 (activity as MainActivity).miViewModel.Insertar(Palabra(palabra=etPalabra.text.toString()))
                 (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
             }
+        }
 
+        bBorrar.setOnClickListener {
+            if (miPalabra != "" && id.compareTo(-1) != 0) {
+                (activity as MainActivity).miViewModel.Borrar(Palabra(id, miPalabra))
+                (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
+            }
+        }
+
+        bModificar.setOnClickListener {
+            if(miPalabra==etPalabra.text.toString()){
+                Toast.makeText(activity,"No has modificado nada",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                (activity as MainActivity).miViewModel.Borrar(Palabra(id,etPalabra.text.toString()))
+                (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
+            }
         }
 
     }

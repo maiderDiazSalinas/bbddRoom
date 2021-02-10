@@ -17,6 +17,14 @@ class PalabraViewModel(private val miRepositorio:Repositorio): ViewModel() {
     fun BuscarPorId (id:Long) =viewModelScope.launch {
          miPalabra = miRepositorio.BuscarPorId(id).asLiveData()
     }
+
+    fun Borrar(miPalabra: Palabra) =viewModelScope.launch{
+        miRepositorio.Borrar(miPalabra)
+    }
+
+    fun Actualizar(miPalabra: Palabra) =viewModelScope.launch{
+        miRepositorio.Actualizar(miPalabra)
+    }
 }
 
 class WordViewModelFactory(private val repository: Repositorio) : ViewModelProvider.Factory {

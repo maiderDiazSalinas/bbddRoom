@@ -35,21 +35,19 @@ class FirstFragment : Fragment() {
         miListaPalabras.observe(activity as MainActivity, Observer { Palabra ->
             // Update the cached copy of the words in the adapter.
             Palabra?.let { misPalabras=it }
+            if(misPalabras.size==0){
+                view.findViewById<TextView>(R.id.frag1_texto).visibility=View.VISIBLE
+                view.findViewById<RecyclerView>(R.id.frag1_recyclerView).visibility=View.GONE
+            }
+            else{
+                view.findViewById<TextView>(R.id.frag1_texto).visibility=View.GONE
+                view.findViewById<RecyclerView>(R.id.frag1_recyclerView).visibility=View.VISIBLE
+                val recyclerView = view.findViewById<RecyclerView>(R.id.frag1_recyclerView)
+                val adapter = Adaptador(misPalabras,activity as MainActivity)
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(activity)
+            }
         })
-
-        if(misPalabras.size==0){
-            view.findViewById<TextView>(R.id.frag1_texto).visibility=View.VISIBLE
-            view.findViewById<RecyclerView>(R.id.frag1_recyclerView).visibility=View.GONE
-        }
-        else{
-            view.findViewById<TextView>(R.id.frag1_texto).visibility=View.GONE
-            view.findViewById<RecyclerView>(R.id.frag1_recyclerView).visibility=View.VISIBLE
-            val recyclerView = view.findViewById<RecyclerView>(R.id.frag1_recyclerView)
-            val adapter = Adaptador(misPalabras,activity as MainActivity)
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        }
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             (activity as MainActivity).navHost.navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
