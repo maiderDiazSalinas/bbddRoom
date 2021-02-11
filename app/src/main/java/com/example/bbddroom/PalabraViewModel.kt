@@ -7,14 +7,13 @@ import kotlin.properties.Delegates
 
 class PalabraViewModel(private val miRepositorio:Repositorio): ViewModel() {
     val allWords: LiveData<List<Palabra>> = miRepositorio.listaPalabras.asLiveData()
-    var id by Delegates.notNull<Long>()
     lateinit var miPalabra:LiveData<Palabra>
 
     fun Insertar (miPalabra: Palabra) = viewModelScope.launch{
         miRepositorio.Insertar(miPalabra)
     }
 
-    fun BuscarPorId (id:Long) =viewModelScope.launch {
+    fun BuscarPorId (id:Int) =viewModelScope.launch {
          miPalabra = miRepositorio.BuscarPorId(id).asLiveData()
     }
 

@@ -27,7 +27,7 @@ class Adaptador(private val listaPalabras: List<Palabra>, val actividad: Activit
         }
 
         override fun onClick(view: View) {
-            val bundle= bundleOf("id" to this.id.text.toString().toLong())
+            val bundle= bundleOf("id" to this.id.text.toString().toInt())
             (actividad as MainActivity).navHost.navController.navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
     }

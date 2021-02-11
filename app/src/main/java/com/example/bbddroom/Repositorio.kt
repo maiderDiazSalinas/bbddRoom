@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 
 class Repositorio (val miDAO: PalabraDAO) {
-    val listaPalabras= miDAO.MostrarTodas()
+    val listaPalabras: Flow<List<Palabra>> = miDAO.MostrarTodas()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -12,7 +12,7 @@ class Repositorio (val miDAO: PalabraDAO) {
         miDAO.Insertar(miPalabra)
     }
 
-    suspend fun BuscarPorId(id:Long): Flow<Palabra> {
+    fun BuscarPorId(id:Int): Flow<Palabra> {
         return miDAO.BuscarPorId(id)
     }
 

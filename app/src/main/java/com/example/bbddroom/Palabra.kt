@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tabla_palabras")
 data class Palabra(
-    @PrimaryKey(autoGenerate = true) var id:Long = 0,
+    @PrimaryKey(autoGenerate = true) var id:Int = 0,
     @NonNull @ColumnInfo (name = "palabra") val palabra: String = "") {}

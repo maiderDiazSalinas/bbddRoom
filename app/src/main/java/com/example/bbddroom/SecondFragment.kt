@@ -33,10 +33,10 @@ class SecondFragment : Fragment() {
         val bModificar=view.findViewById<Button>(R.id.frag2_bModificar)
         val etPalabra=view.findViewById<EditText>(R.id.frag2_etPalabra)
         val tvId=view.findViewById<TextView>(R.id.frag2_tvId)
-        val id:Long=arguments?.getLong("id") ?:-1
-        var miPalabra:String=""
+        val id:Int=arguments?.getInt("id") ?:-1
+        var miPalabra=""
 
-        if(id.compareTo(-1)==0){
+        if(id==-1){
             bBorrar.isEnabled=false
             bModificar.isEnabled=false
             bInsertar.isEnabled=true
@@ -73,7 +73,7 @@ class SecondFragment : Fragment() {
                 Toast.makeText(activity,"No has modificado nada",Toast.LENGTH_SHORT).show()
             }
             else{
-                (activity as MainActivity).miViewModel.Borrar(Palabra(id,etPalabra.text.toString()))
+                (activity as MainActivity).miViewModel.Actualizar(Palabra(id,etPalabra.text.toString()))
                 (activity as MainActivity).navHost.navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
             }
         }

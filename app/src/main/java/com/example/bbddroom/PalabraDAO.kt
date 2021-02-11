@@ -15,7 +15,7 @@ interface PalabraDAO {
     suspend fun BorrarTodo()
 
     @Query("SELECT * FROM tabla_palabras where id like :id")
-    suspend fun BuscarPorId(id: Long): Flow<Palabra>
+    fun BuscarPorId(id: Int): Flow<Palabra>
 
     @Update
     suspend fun Actualizar(word: Palabra)

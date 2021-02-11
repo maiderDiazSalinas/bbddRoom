@@ -12,9 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 class MainActivity : AppCompatActivity() {
 
     lateinit var navHost: NavHostFragment
-    val miViewModel:PalabraViewModel by viewModels {
-        WordViewModelFactory((application as Aplicacion).miRepositorio)
-    }
+    val miViewModel:PalabraViewModel by viewModels {WordViewModelFactory((application as Aplicacion).miRepositorio)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
